@@ -3,11 +3,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "@lib/database";
 import { getSession } from "next-auth/react";
 
-export type ErrorResponse = {
+type ErrorResponse = {
   error: string;
 };
 
-export type SuccessResponse = {
+type SuccessResponse = {
   success: INote | INote[];
 };
 
@@ -22,23 +22,14 @@ export default async (
   switch (req.method) {
     case "GET":
       await dbConnect();
-
-      const { search } = req.query;
-      if (!search) {
-        return res.status(402).json({ error: "Missing body params" });
-      }
       let user: IUser | null = await User.findOne({email: session.user?.email})
       if(!user){
         user = await User.create({
           email: session.user?.email,
           notes: []
-        })
+        });
       }
-      const note: INote[] | undefined = user!.notes.filter(note => note.desc.includes(search.toString()) || note.name.includes(search.toString()) )
-      if(!note){
-        return res.status(402).json({ error: "Note not found" });
-      }   
-      res.status(200).json({success: note})   
+      res.status(200).json({success: user!.notes})   
       break;
     default:
       res.status(402).json({ error: "Method not allowed" });

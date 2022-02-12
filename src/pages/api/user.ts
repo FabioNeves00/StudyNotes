@@ -24,7 +24,13 @@ export default async (
       await dbConnect();
       const user: IUser | null = await User.findOne({email: session?.user?.email})
 
-      if(!user) {return res.status(201).json({ error: "Email not on DB" })}
+      if(!user) {
+        const user: IUser = await User.create({
+          email: session.user?.email,
+          notes: []
+        })
+        return res.status(200).json({success: user})
+      }
       res.status(200).json({success: user});
       break;
     case "POST":

@@ -3,6 +3,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import ClassIcon from "@mui/icons-material/Class";
 import { Fragment } from "react";
 import Link from "next/link";
+import { NextPage } from "next";
 
 interface LayoutProps {
   children: JSX.Element | JSX.Element[];
@@ -12,7 +13,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Layout({ children }: LayoutProps): JSX.Element {
+const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
   const { data: session } = useSession();
   return (
     <>
@@ -35,12 +36,12 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
                   </div>
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  <Menu as="div" className="relative ml-3">
+                  <Menu as="div" className="relative ml-3 drop-shadow-lg shadow-black">
                     <div>
-                      <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <Menu.Button className="flex rounded-2xl bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="sr-only">Open user menu</span>
                         <img
-                          className="w-16 rounded-full border-2 border-white"
+                          className="w-16 rounded-2xl border-2 border-white"
                           src={
                             session?.user?.image ||
                             "https://scontent.fbel1-1.fna.fbcdn.net/v/t1.18169-9/s526x395/17796836_1150382925090762_736476295883560996_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=UIgzJCgMlNwAX_L6fSJ&_nc_ht=scontent.fbel1-1.fna&oh=00_AT_6sWwGuTZlMQlKaFiZ58-xcrq2rsNskohVOWRocH-pDg&oe=6222C38F"
@@ -125,3 +126,5 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
     </>
   );
 }
+
+export default Layout

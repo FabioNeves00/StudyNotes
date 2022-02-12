@@ -22,11 +22,14 @@ export default async (
   switch (req.method) {
     case "GET":
       await dbConnect();
-      const user: IUser | null = await User.findOne({email: session.user?.email})
+      let user: IUser | null = await User.findOne({email: session.user?.email})
       if(!user){
-        return res.status(402).json({ error: "User not found" });
+        user = await User.create({
+          email: session.user?.email,
+          notes: []
+        });
       }   
-      res.status(200).json({success: user.notes})   
+      res.status(200).json({success: user!.notes})   
       break;
     default:
       res.status(402).json({ error: "Method not allowed" });
