@@ -19,7 +19,8 @@
       "@lib/*": ["./src/lib/*"],
       "@components/*": ["./src/components/*"],
       "@core/*": ["./src/core/*"],
-      "@public/*": ["./public/*"]
+      "@public/*": ["./public/*"],
+      "@hooks/*": ["./src/hooks/*"]
     },
     "jsx": "preserve",
     "incremental": true

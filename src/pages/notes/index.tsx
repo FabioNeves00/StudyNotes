@@ -2,7 +2,7 @@ import Layout from "@components/Layout";
 import { INote } from "@models/User";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import Head from "next/head";
+import Head from "next/head";  
 import { useCallback, useEffect, useState } from "react";
 import LoadingCard from "@components/LoadingCard";
 import Search from "@components/Search";
@@ -75,7 +75,6 @@ const Notes: NextPage = () => {
                     <MediaCard
                       key={index}
                       _id={note._id}
-                      color={note.color || ""}
                       name={note.name}
                       link={note.link || ""}
                       desc={note.desc}

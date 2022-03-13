@@ -1,18 +1,26 @@
 import RequestAPI from "@lib/api";
 import { INote } from "@models/User";
-import { useEffect, useState } from "react";
+import getVideoId from "get-video-id";
+import { useState } from "react";
 
-export function useCreateNote<T = any>({ name, desc, color, link }: INote) {
-  const [data, setData] = useState<T>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+type loading = {
+  loading: "true" | "false"
+}
 
-  const handleSubmit = async () => {
-    setIsLoading(true);
-    const {data: response} = await RequestAPI.createNote<T>("/notes", {name, desc, color, link});
-    setData(data);
-    setIsLoading(false);
+export function useCreateNote() {
+  const [data, setData] = useState({});
+  const [isLoading, setisLoading] = useState(false);
+
+  const createNote = async (note: INote) => {
+    if (getVideoId(note.link!).id) {
+      note.link = `https://img.youtube.com/vi/${getVideoId(note.link!).id}/0.jpg`;
+    }
+    setisLoading(state => !state)
+    const {data: response} = await RequestAPI.createNote("/notes", note);
+    console.log(response);
+    setData(response);
+    setisLoading(state => !state)
   };
 
-  useEffect(() => {handleSubmit()}, [data]);
-  return [data, isLoading];
+  return [data, isLoading as unknown as loading, createNote] as const;
 };

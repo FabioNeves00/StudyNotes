@@ -6,25 +6,26 @@ import InputField from "@components/InputField";
 import { useState } from "react";
 import getVideoId from "get-video-id";
 import Box from "@mui/material/Box";
-import RequestAPI from "@lib/api";
-import { useCreateNote } from "src/hooks/useCreateNote";
-
-const regex =
-  "^(?:https?:)?(?://)?(?:www.)?(?:youtu.be/|youtube(?:-nocookie)?.(?:[A-Za-z]{2,4}|[A-Za-z]{2,3}.[A-Za-z]{2})/)(?:watch|embed/|vi?/)*(?:?[w=&]*vi?=)?([^#&?/]{11}).*$";
+import { useCreateNote } from "@hooks/useCreateNote";
 
 const NotesCreator: NextPage = () => {
   const { data: session, status } = useSession();
-  const [error, setError] = useState<Error | null>();
   const [name, setName] = useState<string>("");
   const [desc, setDesc] = useState<string>("");
-  const [color, setColor] = useState<string>("");
   const [link, setLink] = useState<string>("");
-  const [data, setData] = useState<string>("");
-  
+  const [data, loading, createNote] = useCreateNote();
+
   const handleSubmit = () => {
-    const [data, isLoading] = useCreateNote({name, desc, color, link});
-    setData(data);
-  }
+    
+    if (!loading) {
+      createNote({ name, desc, link });
+      setDesc("");
+      setName("");
+      setLink("");
+      console.log(data);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -65,7 +66,7 @@ const NotesCreator: NextPage = () => {
                 type={"url"}
                 stateHook={setLink}
                 required={false}
-                name="Link de video do Youtube"
+                name="Link para imagem ou link de video do youtube"
                 multiline={false}
               />
             </Box>
