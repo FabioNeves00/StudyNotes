@@ -6,26 +6,35 @@ import InputField from "@components/InputField";
 import { useState } from "react";
 import getVideoId from "get-video-id";
 import Box from "@mui/material/Box";
+import RequestAPI from "@lib/api";
+import { useCreateNote } from "src/hooks/useCreateNote";
+
+const regex =
+  "^(?:https?:)?(?://)?(?:www.)?(?:youtu.be/|youtube(?:-nocookie)?.(?:[A-Za-z]{2,4}|[A-Za-z]{2,3}.[A-Za-z]{2})/)(?:watch|embed/|vi?/)*(?:?[w=&]*vi?=)?([^#&?/]{11}).*$";
 
 const NotesCreator: NextPage = () => {
   const { data: session, status } = useSession();
-  const [title, setTitle] = useState<string>("");
+  const [error, setError] = useState<Error | null>();
+  const [name, setName] = useState<string>("");
   const [desc, setDesc] = useState<string>("");
   const [color, setColor] = useState<string>("");
-  const [link, setLink] = useState("");
-
-  const handleSubmit = () => {};
-
+  const [link, setLink] = useState<string>("");
+  const [data, setData] = useState<string>("");
+  
+  const handleSubmit = () => {
+    const [data, isLoading] = useCreateNote({name, desc, color, link});
+    setData(data);
+  }
   return (
     <>
       <Head>
         <title>Note Creator</title>
         <link rel="shortcut icon" href="/bookmark-icon.png" type="image/png" />
       </Head>
-      <Layout>
+      <Layout backButton={true} backPage="/notes">
         <main className="w-full h-full flex flex-col items-center">
-          <h1 className="my-2 text-4xl text-white">Create a new Note</h1>
-          <section className="bg-slate-300 w-4/6 h-4/5">
+          <h1 className="my-4 text-4xl text-white">Create a new Note</h1>
+          <section className="w-4/6 h-4/5 bg-extra flex flex-col items-center justify-center gap-12">
             <Box
               component="form"
               sx={{
@@ -36,11 +45,12 @@ const NotesCreator: NextPage = () => {
               autoComplete="off"
             >
               <InputField
-                state={title}
+                state={name}
                 type={"text"}
-                stateHook={setTitle}
+                stateHook={setName}
                 required={true}
                 name="Título"
+                multiline={false}
               />
               <InputField
                 state={desc}
@@ -48,6 +58,7 @@ const NotesCreator: NextPage = () => {
                 stateHook={setDesc}
                 required={true}
                 name="Descrição"
+                multiline={true}
               />
               <InputField
                 state={link}
@@ -55,9 +66,16 @@ const NotesCreator: NextPage = () => {
                 stateHook={setLink}
                 required={false}
                 name="Link de video do Youtube"
+                multiline={false}
               />
             </Box>
-            <button onClick={handleSubmit}>Submit</button>
+            <button
+              type="submit"
+              className="bg-button-primary"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
           </section>
         </main>
       </Layout>

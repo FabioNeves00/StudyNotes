@@ -1,35 +1,48 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import ClassIcon from "@mui/icons-material/Class";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Fragment } from "react";
 import Link from "next/link";
 import { NextPage } from "next";
 
 interface LayoutProps {
   children: JSX.Element | JSX.Element[];
+  backButton?: boolean
+  backPage: string
 }
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
+const Layout: NextPage<LayoutProps> = ({ children, backButton, backPage }: LayoutProps) => {
   const { data: session } = useSession();
   return (
     <>
-      <Disclosure as="nav" className="bg-gray-800 shadow-lg shadow-black z-50">
+      <Disclosure as="nav" className="shadow-lg shadow-black bg-bg-secondary z-50">
         {({ open }) => (
           <>
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
               <div className="relative flex items-center justify-between h-20">
                 <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                  <div className="flex-shrink-0 flex items-center">
+                  <div className="flex-shrink-0 flex items-center gap-2">
+                  {backButton && (
+                    <Link href={backPage}>
+                    <a
+                      href={backPage}
+                      className="text-white text-4xl no-underline m-0 text-center mb-2"
+                    >
+                      <ArrowBackIosNewIcon className="text-white" fontSize="large"/>
+                    </a>
+                  </Link>
+                  )}
                     <Link href="/">
                       <a
                         href="/"
-                        className="text-white text-4xl no-underline m-0 "
+                        className="text-white text-4xl font-bold no-underline m-0 "
                       >
-                        <ClassIcon sx={{ color: "white", fontSize: 50 }} fontSize="large" />
+                        <ClassIcon  className="text-white" sx={{fontSize: 50 }} fontSize="large" />
                         StudyNotes
                       </a>
                     </Link>
@@ -41,7 +54,7 @@ const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
                       <Menu.Button className="flex rounded-2xl bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="sr-only">Open user menu</span>
                         <img
-                          className="w-16 rounded-2xl border-2 border-white"
+                          className="w-16 rounded-3xl border-2 border-white hover:brightness-90"
                           src={
                             session?.user?.image ||
                             "https://scontent.fbel1-1.fna.fbcdn.net/v/t1.18169-9/s526x395/17796836_1150382925090762_736476295883560996_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=UIgzJCgMlNwAX_L6fSJ&_nc_ht=scontent.fbel1-1.fna&oh=00_AT_6sWwGuTZlMQlKaFiZ58-xcrq2rsNskohVOWRocH-pDg&oe=6222C38F"
@@ -122,7 +135,7 @@ const Layout: NextPage<LayoutProps> = ({ children }: LayoutProps) => {
           </>
         )}
       </Disclosure>
-      <main className="w-screen h-screen bg-slate-900">{children}</main>
+      <main className="w-screen h-screen bg-bg-primary">{children}</main>
     </>
   );
 }

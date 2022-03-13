@@ -10,7 +10,7 @@ const Home: NextPage = () => {
         <title>Home Page</title>
         <link rel="shortcut icon" href="/home-icon.png" type="image/png" />
       </Head>
-      <Layout>
+      <Layout backButton={false} backPage="/">
         <main className="w-full h-full flex justify-center items-center">
           <div className="lg grid overflow-hidden grid-cols-4 grid-rows-4 gap-4">
             <div className="box row-span-4">
@@ -22,7 +22,7 @@ const Home: NextPage = () => {
               </h1>
             </div>
             <div className="box row-span-2 col-start-2 col-span-2">
-              <div className="flex-shrink-0 h-32 flex justify-center items-center bg-slate-700 rounded-lg">
+              <div className="flex-shrink-0 h-32 flex justify-center items-center rounded-lg">
                 <ClassIcon sx={{ color: "white", fontSize: 80 }} />
                 <h1 className="text-white text-6xl no-underline m-0 ">
                   StudyNotes

@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import { Dispatch, SetStateAction } from "react";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 type InputFieldProps = {
@@ -9,6 +8,7 @@ type InputFieldProps = {
   state: string;
   stateHook: Dispatch<SetStateAction<string>>;
   required: boolean;
+  multiline: boolean;
 };
 
 const InputField: NextPage<InputFieldProps> = ({
@@ -17,18 +17,22 @@ const InputField: NextPage<InputFieldProps> = ({
   type,
   stateHook,
   required,
+  multiline,
 }: InputFieldProps) => {
   return (
-      <TextField
-        fullWidth
-        label={name}
-        id={name}
-        type={type}
-        value={state}
-        onChange={({ target: { value } }) => stateHook(value)}
-        required={required}
-        className="m-2"
-      />
+    <TextField
+      fullWidth
+      multiline={multiline}
+      label={name}
+      id={name}
+      type={type}
+      value={state}
+      onChange={({ target: { value } }) => stateHook(value)}
+      required={required}
+      error={(state === "" && type !== "url")}
+      helperText={(state === "" && type !== "url") ? "Empty!" : " "}
+      className="m-2 border-black"
+    />
   );
 };
 

@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, ObjectId } from "mongoose";
 
 export interface IUser {
   email: string;
@@ -6,24 +6,23 @@ export interface IUser {
 }
 
 export interface INote {
-  id: number;
+  _id?: ObjectId;
   name: string;
   desc: string;
-  link?: string;
-  color?: string;
+  link?: string | undefined;
+  color?: string | undefined;
 }
+
+const NoteSchema = new Schema<INote>({
+  name: { type: String, required: true },
+  desc: { type: String, required: true },
+  link: { type: String, required: false },
+  color: { type: String, required: false },
+});
 
 const UserSchema = new Schema<IUser>({
   email: { type: String, required: true },
-  notes: [
-    {
-      id: { type: Number, required: true },
-      name: { type: String, required: true },
-      desc: { type: String, required: true },
-      link: { type: String, required: false },
-      color: { type: String, required: false },
-    },
-  ],
+  notes: [NoteSchema],
 });
 
 export default models.User || model<IUser>("User", UserSchema);
