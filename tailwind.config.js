@@ -10,7 +10,8 @@ module.exports = {
       "extra": "#f9dec9",
       "button-primary": "#e9afa3",
       "extra-bg": "#685044",
-      "black": "#000"
+      "black": "#000",
+      "white": "#fff"
     },
   },
   plugins: [],

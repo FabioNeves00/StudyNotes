@@ -4,7 +4,6 @@ import Head from "next/head";
 import Layout from "@components/Layout";
 import InputField from "@components/InputField";
 import { useState } from "react";
-import getVideoId from "get-video-id";
 import Box from "@mui/material/Box";
 import { useCreateNote } from "@hooks/useCreateNote";
 
@@ -16,7 +15,6 @@ const NotesCreator: NextPage = () => {
   const [data, loading, createNote] = useCreateNote();
 
   const handleSubmit = () => {
-    
     if (!loading) {
       createNote({ name, desc, link });
       setDesc("");

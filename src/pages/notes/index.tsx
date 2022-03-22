@@ -1,13 +1,13 @@
 import Layout from "@components/Layout";
+import LoadingCard from "@components/LoadingCard";
+import Search from "@components/Search";
+import MediaCard from "@components/Card";
 import { INote } from "@models/User";
+import RequestAPI from "@lib/api";
+import { useCallback, useEffect, useState } from "react";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";  
-import { useCallback, useEffect, useState } from "react";
-import LoadingCard from "@components/LoadingCard";
-import Search from "@components/Search";
-import RequestAPI from "@lib/api";
-import MediaCard from "@components/Card";
 import Link from "next/link";
 
 const Notes: NextPage = () => {
@@ -54,7 +54,7 @@ const Notes: NextPage = () => {
       <Layout backButton={true} backPage="/">
         <div className="w-screen h-screen flex flex-col items-center">
           <Search setTextInput={setTextInput} handleSearch={handleSearch} />
-          <div className="section bg-extra w-11/12 h-3/4 mt-4 flex items-center justify-center">
+          <div className="section bg-extra w-11/12 h-3/4 mt-2 flex items-center justify-center">
             {isLoading && (
               <LoadingCard pulsating={true} title="Loading Cards..." />
             )}
@@ -76,20 +76,13 @@ const Notes: NextPage = () => {
                       key={index}
                       _id={note._id}
                       name={note.name}
-                      link={note.link || ""}
+                      link={note.link}
                       desc={note.desc}
                     />
                   );
                 })}
               </div>
             )}
-            <Link href="/notes/newNote">
-              <a className="absolute w-20 h-20 rounded-full flex items-center justify-center m-0 bottom-28 right-32 no-underline drop-shadow-lg shadow-black">
-                <span className="w-full h-full text-center text-white align-text-top text-7xl rounded-full bg-button-primary hover:brightness-90 duration-200">
-                  +
-                </span>
-              </a>
-            </Link>
           </div>
         </div>
       </Layout>
