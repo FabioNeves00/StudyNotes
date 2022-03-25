@@ -6,12 +6,13 @@ module.exports = {
   theme: {
     colors: {
       "bg-primary": "#3a405a",
+      "bg-nav": "#2c3149",
       "bg-secondary": "#aec5eb",
-      "extra": "#f9dec9",
+      extra: "#f9dec9",
       "button-primary": "#e9afa3",
       "extra-bg": "#685044",
-      "black": "#000",
-      "white": "#fff"
+      black: "#000",
+      white: "#fff",
     },
   },
   plugins: [],

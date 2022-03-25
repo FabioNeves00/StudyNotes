@@ -13,7 +13,7 @@ type SearchProps = {
 const Search = ({ setTextInput, handleSearch }: SearchProps) => {
   return (
     <>
-      <div className="h-fit w-11/12 mt-4 flex justify-between">
+      <div className="h-fit w-11/12 mt-12 flex justify-between">
         <div>
           <Link href="/notes/newNote">
             <button className="flex justify-center items-center gap-2 w-40 h-9 drop-shadow-lg shadow-black rounded-md bg-button-primary text-white text-2xl font-semibold text-center hover:brightness-95 active:brightness-90">

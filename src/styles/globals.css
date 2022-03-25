@@ -36,7 +36,6 @@ a {
   line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-
 .title {
   max-width: 10ch;
   -webkit-line-clamp: 1; /* number of lines to show */

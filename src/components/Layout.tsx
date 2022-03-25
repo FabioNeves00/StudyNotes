@@ -26,7 +26,7 @@ const Layout: NextPage<LayoutProps> = ({
     <>
       <Disclosure
         as="nav"
-        className="shadow-lg shadow-black bg-bg-secondary z-50"
+        className="shadow-lg shadow-black bg-bg-nav z-50 pt-1 pb-1 border-white"
       >
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -67,7 +67,7 @@ const Layout: NextPage<LayoutProps> = ({
                   className="relative ml-3 drop-shadow-lg shadow-black"
                 >
                   <div>
-                    <Menu.Button className="flex rounded-2xl bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Menu.Button className="flex rounded-2xl bg-gray-800 text-sm outline-none ">
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="w-16 rounded-2xl border-2 border-white"
