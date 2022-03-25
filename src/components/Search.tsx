@@ -16,7 +16,7 @@ const Search = ({ setTextInput, handleSearch }: SearchProps) => {
       <div className="h-fit w-11/12 mt-4 flex justify-between">
         <div>
           <Link href="/notes/newNote">
-            <button className="flex justify-center items-center w-40 h-9 drop-shadow-lg shadow-black rounded-md bg-button-primary text-white text-2xl font-semibold text-center hover:brightness-95 active:brightness-90">
+            <button className="flex justify-center items-center gap-2 w-40 h-9 drop-shadow-lg shadow-black rounded-md bg-button-primary text-white text-2xl font-semibold text-center hover:brightness-95 active:brightness-90">
               New Note
               <Image height={20} src={crossImg} alt="+" />
             </button>
@@ -31,7 +31,7 @@ const Search = ({ setTextInput, handleSearch }: SearchProps) => {
             id="search"
             autoComplete="off"
             onChange={(e) => setTextInput(e.target.value)}
-            className="block bg-extra w-max mr-2 h-8 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md hover:brightness-95"
+            className="block bg-extra w-max mr-2 h-8 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
             placeholder="Math, DNA, Hydrogen..."
           />
           <button

@@ -40,7 +40,7 @@ const Layout: NextPage<LayoutProps> = ({
                         className="text-white text-4xl no-underline m-0 text-center mb-2"
                       >
                         <ArrowBackIosNewIcon
-                          className="text-white"
+                          className="text-white mr-2"
                           fontSize="large"
                         />
                       </a>

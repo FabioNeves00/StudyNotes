@@ -26,8 +26,14 @@ const Home: NextPage = () => {
           <h5 className="w-3/4 text-white text-center">
             Um amigo para ajudar na organização dos seus estudos.
           </h5>
-          <Link href={session ? "/notes" : "/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fnotes"}>
-            <button className="bg-button-primary drop-shadow-lg shadow-black w-4/5 h-14 text-3xl font-bold text-white rounded-md mt-24 hover:brightness-95 active:brightness-75">
+          <Link
+            href={
+              session
+                ? "/notes"
+                : "/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fnotes"
+            }
+          >
+            <button className="bg-button-primary drop-shadow-lg shadow-black w-4/5 h-16 text-3xl font-bold text-white rounded-md mt-24 hover:brightness-95 active:brightness-75">
               {session ? "Acesse suas anotações" : "Faça login para começar"}
             </button>
           </Link>
