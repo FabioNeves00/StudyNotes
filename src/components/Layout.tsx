@@ -70,7 +70,7 @@ const Layout: NextPage<LayoutProps> = ({
                     <Menu.Button className="flex rounded-2xl bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
                       <img
-                        className="w-16 rounded-3xl border-2 border-white hover:brightness-90"
+                        className="w-16 rounded-2xl border-2 border-white"
                         src={
                           session?.user?.image ||
                           "https://scontent.fbel1-1.fna.fbcdn.net/v/t1.18169-9/s526x395/17796836_1150382925090762_736476295883560996_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=UIgzJCgMlNwAX_L6fSJ&_nc_ht=scontent.fbel1-1.fna&oh=00_AT_6sWwGuTZlMQlKaFiZ58-xcrq2rsNskohVOWRocH-pDg&oe=6222C38F"

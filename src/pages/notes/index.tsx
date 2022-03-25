@@ -52,7 +52,7 @@ const Notes: NextPage = () => {
       <Layout backButton={true} backPage="/">
         <div className="w-screen h-screen flex flex-col items-center">
           <Search setTextInput={setTextInput} handleSearch={handleSearch} />
-          <div className="section bg-extra w-11/12 h-3/4 mt-2 flex items-center justify-center rounded-md">
+          <div className="section bg-extra w-11/12 h-3/4 mt-2 flex items-center justify-center rounded-md pt-2">
             {isLoading && (
               <LoadingCard pulsating={true} title="Loading Cards..." />
             )}
