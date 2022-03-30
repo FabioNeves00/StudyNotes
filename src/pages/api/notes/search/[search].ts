@@ -21,24 +21,36 @@ export default async (
   }
   switch (req.method) {
     case "GET":
-      await dbConnect();
+      try {
+        await dbConnect();
 
-      const { search } = req.query;
-      if (!search) {
-        return res.status(402).json({ error: "Missing body params" });
-      }
-      let user: IUser | null = await User.findOne({email: session.user?.email})
-      if(!user){
-        user = await User.create({
+        const { search } = req.query;
+        if (!search) {
+          return res.status(402).json({ error: "Missing body params" });
+        }
+        let user: IUser | null = await User.findOne({
           email: session.user?.email,
-          notes: []
-        })
+        });
+        if (!user) {
+          user = await User.create({
+            email: session.user?.email,
+            notes: [],
+          });
+        }
+        
+        const note: INote[] | undefined = user?.notes.filter(
+          (note) =>{
+            console.log(note);
+            
+            return note.desc.includes(search.toString()) || note.name.includes(search.toString())}
+        );
+        if (!note) {
+          return res.status(402).json({ error: "Note not found" });
+        }
+        res.status(200).json({ success: note });
+      } catch (error) {
+        res.status(200).json({ error: `${error}` });
       }
-      const note: INote[] | undefined = user!.notes.filter(note => note.desc.includes(search.toString()) || note.name.includes(search.toString()) )
-      if(!note){
-        return res.status(402).json({ error: "Note not found" });
-      }   
-      res.status(200).json({success: note})   
       break;
     default:
       res.status(402).json({ error: "Method not allowed" });

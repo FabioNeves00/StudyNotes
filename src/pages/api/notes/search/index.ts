@@ -21,15 +21,21 @@ export default async (
   }
   switch (req.method) {
     case "GET":
-      await dbConnect();
-      let user: IUser | null = await User.findOne({email: session.user?.email})
-      if(!user){
-        user = await User.create({
+      try {
+        await dbConnect();
+        let user: IUser | null = await User.findOne({
           email: session.user?.email,
-          notes: []
         });
-      }   
-      res.status(200).json({success: user!.notes})   
+        if (!user) {
+          user = await User.create({
+            email: session.user?.email,
+            notes: [],
+          });
+        }
+        res.status(200).json({ success: user!.notes });
+      } catch (error) {
+        res.status(200).json({ error: `${error}` });
+      }
       break;
     default:
       res.status(402).json({ error: "Method not allowed" });
