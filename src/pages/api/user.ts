@@ -15,34 +15,44 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse<SuccessResponse | ErrorResponse>
 ): Promise<void> => {
-  const session = await getSession({ req })
-  if(!session){
+  const session = await getSession({ req });
+  if (!session) {
     return res.status(402).json({ error: "Method not allowed" });
   }
   switch (req.method) {
     case "GET":
-      await dbConnect();
-      const user: IUser | null = await User.findOne({email: session?.user?.email})
+      try {
+        await dbConnect();
+        const user: IUser | null = await User.findOne({
+          email: session?.user?.email,
+        });
 
-      if(!user) {
-        const user: IUser = await User.create({
-          email: session.user?.email,
-          notes: []
-        })
-        return res.status(200).json({success: user})
+        if (!user) {
+          const user: IUser = await User.create({
+            email: session.user?.email,
+            notes: [],
+          });
+          return res.status(200).json({ success: user });
+        }
+        res.status(200).json({ success: user });
+      } catch (error) {
+        res.status(200).json({ error: `${error}` });
       }
-      res.status(200).json({success: user});
       break;
     case "POST":
-      await dbConnect();
-      if(session && !(await User.findOne({email: session.user?.email}))){
-        const user: IUser = await User.create({
-          email: session.user?.email,
-          notes: []
-        })
-        return res.status(200).json({success: user})
+      try {
+        await dbConnect();
+        if (session && !(await User.findOne({ email: session.user?.email }))) {
+          const user: IUser = await User.create({
+            email: session.user?.email,
+            notes: [],
+          });
+          return res.status(200).json({ success: user });
+        }
+        res.status(200).json({ error: "User already registered" });
+      } catch (error) {
+        res.status(200).json({ error: `${error}` });
       }
-      res.status(200).json({ error: "User already registered" })
       break;
     default:
       res.status(402).json({ error: "Method not allowed" });
