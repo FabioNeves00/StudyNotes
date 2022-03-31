@@ -36,23 +36,23 @@ a {
   line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-
 .title {
   max-width: 10ch;
   -webkit-line-clamp: 1; /* number of lines to show */
   line-clamp: 1;
 }
 
-.neumorphismButtons, .neumorphismCard {
-  transition: all 0.7s ease;
+.neumorphismButtons,
+.neumorphismCard {
+  transition: all 0.5s ease;
 }
 
 .neumorphismCard:hover {
-  box-shadow: 10px 10px 20px #58585881, -10px -10px 40px #706e6ea8 !important;
+  box-shadow: 2px 3px 8px 0px rgba(0, 0, 0, 0.438);
 }
 
 .neumorphismButton:hover {
-  box-shadow: 1px 1px 10px #58585881, -1px -1px 20px #d7d7d7 !important;
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.438);
 }
 
 * {

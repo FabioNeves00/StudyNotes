@@ -7,7 +7,7 @@ import RequestAPI from "@lib/api";
 import { useCallback, useEffect, useState } from "react";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import Head from "next/head";  
+import Head from "next/head";
 import Link from "next/link";
 
 const Notes: NextPage = () => {
@@ -35,9 +35,7 @@ const Notes: NextPage = () => {
     setIsLoading(true);
     const {
       data: { success },
-    } = await RequestAPI.getNotes(
-      "/notes/search/" + textInput
-    );
+    } = await RequestAPI.getNotes("/notes/search/" + textInput);
 
     if (success) {
       setNotes(success);
@@ -54,7 +52,7 @@ const Notes: NextPage = () => {
       <Layout backButton={true} backPage="/">
         <div className="w-screen h-screen flex flex-col items-center">
           <Search setTextInput={setTextInput} handleSearch={handleSearch} />
-          <div className="section bg-extra w-11/12 h-3/4 mt-2 flex items-center justify-center">
+          <div className="section bg-extra w-11/12 h-3/4 mt-2 flex items-center justify-center rounded-md pt-2">
             {isLoading && (
               <LoadingCard pulsating={true} title="Loading Cards..." />
             )}
