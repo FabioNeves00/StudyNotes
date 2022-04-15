@@ -39,10 +39,7 @@ export default async (
         }
         
         const note: INote[] | undefined = user?.notes.filter(
-          (note) =>{
-            console.log(note);
-            
-            return note.desc.includes(search.toString()) || note.name.includes(search.toString())}
+          (note) =>note.desc.includes(search.toString()) || note.name.includes(search.toString())
         );
         if (!note) {
           return res.status(402).json({ error: "Note not found" });

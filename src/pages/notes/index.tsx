@@ -8,14 +8,14 @@ import { useCallback, useEffect, useState } from "react";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
-import Link from "next/link";
+import { CardModal } from "@components/CardInfoModal";
 
 const Notes: NextPage = () => {
   const { data: session, status } = useSession();
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [textInput, setTextInput] = useState<String>("");
   const [notes, setNotes] = useState<INote[]>([]);
-
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   useEffect(() => {
     if (!session) return;
     setIsLoading(true);
@@ -72,10 +72,11 @@ const Notes: NextPage = () => {
                   return (
                     <MediaCard
                       key={index}
-                      _id={note._id}
+                      _id={note._id!}
                       name={note.name}
-                      link={note.link}
                       desc={note.desc}
+                      isOpen={isModalOpen}
+                      handleOpenClose={setIsModalOpen}
                     />
                   );
                 })}
@@ -84,6 +85,7 @@ const Notes: NextPage = () => {
           </div>
         </div>
       </Layout>
+      <CardModal isOpen={isModalOpen} handleOpenClose={setIsModalOpen} />
     </>
   );
 };

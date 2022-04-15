@@ -2,7 +2,7 @@ import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
 import crossImg from "@assets/crossSign.svg";
 import filterButton from "@assets/filterButton.svg";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import Image from "next/image";
 
 type SearchProps = {
@@ -11,6 +11,14 @@ type SearchProps = {
 };
 
 const Search = ({ setTextInput, handleSearch }: SearchProps) => {
+  useEffect(() => {
+    window.addEventListener("keypress", (e) => {
+      if(e.key === 'Enter'){
+        handleSearch();
+      }
+    });
+  }, []);
+
   return (
     <>
       <div className="h-fit w-11/12 mt-12 flex justify-between">
